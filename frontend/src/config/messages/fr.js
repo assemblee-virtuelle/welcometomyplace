@@ -4,8 +4,6 @@ module.exports = {
   app: {
     forum_name: 'Forum Réseaux de Vie',
     backed_by_organization: 'Proposé par %{organizationName}',
-    description_short: 'Favoriser un vivre ensemble\nbasé sur l’accueil, la confiance et l’entraide',
-    description_long: 'Une application pour favoriser un vivre ensemble basé sur l’accueil, la confiance et l’entraide.',
     action: {
       accept: 'Accepter',
       accept_contact_request: 'Accepter la demande',
@@ -97,6 +95,7 @@ module.exports = {
       event_finished: 'Cette rencontre est terminé',
       no_condition: 'Aucune',
       you_participated_to_same_event: 'Vous avez participé à la même rencontre',
+      event_message_title: `%{username} vous écrit au sujet de "%{event}"`
     },
     notification: {
       contact_request_accepted: 'Demande de contact acceptée',

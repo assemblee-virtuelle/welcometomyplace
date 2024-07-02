@@ -1,7 +1,7 @@
-import React from 'react';
-import { Box, Button, makeStyles, Typography, ThemeProvider } from '@material-ui/core';
-import { Link, useGetIdentity, useTranslate } from 'react-admin';
-import { Redirect } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Box, Button, Typography, ThemeProvider } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import { Link, useGetIdentity, useTranslate, useRedirect } from 'react-admin';
 import AppIcon from '../config/AppIcon';
 import theme from '../config/theme';
 
@@ -28,6 +28,7 @@ const useStyles = makeStyles(() => ({
     color: 'white',
     fontStyle: 'italic',
     marginTop: 16,
+    maxWidth: 250,
     whiteSpace: 'pre-line',
   },
   link: {
@@ -48,14 +49,19 @@ const useStyles = makeStyles(() => ({
 
 const HomePage = ({ title }) => {
   const classes = useStyles();
-  const { loading, identity } = useGetIdentity();
+  const redirect = useRedirect();
+  const { data: identity, isLoading } = useGetIdentity();
   const translate = useTranslate();
 
-  if (loading) return null;
+  useEffect(() => {
+    if (!isLoading && identity?.id) {
+      redirect('list', 'Event');
+    }
+  }, [identity, isLoading, redirect])
 
-  return identity?.id ? (
-    <Redirect to="/Event" />
-  ) : (
+  if (isLoading) return null;
+
+  return (
     <ThemeProvider theme={theme}>
       <Box className={classes.root}>
         <AppIcon className={classes.logo} />
@@ -63,7 +69,7 @@ const HomePage = ({ title }) => {
           {title}
         </Typography>
         <Typography align="center" className={classes.description}>
-          {translate('app.description_short')}
+          {process.env.REACT_APP_DESCRIPTION}
         </Typography>
         {process.env.REACT_APP_ORGANIZATION_NAME &&
           <a href={process.env.REACT_APP_ORGANIZATION_URL} target="_blank" rel="noopener noreferrer" className={classes.link}>

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
-import { ShowBase, useRecordContext, useTranslate } from 'react-admin';
-import { ImageField, ReferenceField } from '@semapps/field-components';
+import { ShowBase, ImageField, useRecordContext, useTranslate } from 'react-admin';
+import { ReferenceField } from '@semapps/field-components';
 import { AvatarWithLabelField } from '@semapps/field-components';
 import { GridList } from '@semapps/list-components';
 import { useCheckAuthenticated } from '@semapps/auth-provider';
@@ -60,10 +60,10 @@ const EventShow = (props) => {
             </EventJoinCard>
           }
         >
-          <ImageField source="image" fullWidth />
+          <ImageField source="image" />
           <MarkdownField source="content" />
           <EventConditionsField source="name" />
-          <ReferenceCollectionField reference="Actor" source="apods:attendees">
+          <ReferenceCollectionField reference="Actor" source="apods:attendees" addLabel>
             <GridList xs={4} sm={2} linkType={false}>
               <ReferenceField reference="Profile" source="url" link={false}>
                   <LinkToExternalApp type="as:Profile">
@@ -71,7 +71,7 @@ const EventShow = (props) => {
                       label="vcard:given-name"
                       image="vcard:photo"
                       defaultLabel={translate('app.user.unknown')}
-                      labelColor="grey.300"
+                      labelColor="grey"
                     />
                   </LinkToExternalApp>
               </ReferenceField>

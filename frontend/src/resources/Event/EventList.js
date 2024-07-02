@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { ListBase, useTranslate } from 'react-admin';
-import { Container, Grid, Hidden, useMediaQuery, AppBar, Tabs, Tab, makeStyles, Box } from '@material-ui/core';
+import { Container, Grid, Hidden, useMediaQuery, AppBar, Tabs, Tab, Box, Alert } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { useCheckAuthenticated } from '@semapps/auth-provider';
 import CardsList from '../../commons/lists/CardsList';
 import EventCard from './EventCard';
 import HeaderTitle from '../../layout/HeaderTitle';
 import ProfileCard from '../../commons/cards/ProfileCard';
-import Alert from "@material-ui/lab/Alert";
 import AppIcon from '../../config/AppIcon';
 
 const useStyles = makeStyles((theme) => ({
@@ -57,7 +57,7 @@ const EventList = (props) => {
           <Grid item xs={12} md={8} lg={9}>
             <Box mb={2}>
               <Alert icon={<AppIcon />} variant="filled" className={classes.mission}>
-                {translate('app.description_long')}
+                {process.env.REACT_APP_DESCRIPTION}
                 {" "}
                 {process.env.REACT_APP_ORGANIZATION_NAME &&
                   <a href={process.env.REACT_APP_ORGANIZATION_URL} target="_blank" rel="noopener noreferrer" className={classes.link}>

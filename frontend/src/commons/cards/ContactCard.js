@@ -1,5 +1,6 @@
 import React, { useMemo, useCallback } from 'react';
-import { makeStyles, Box, Card, Typography, Avatar } from '@material-ui/core';
+import { Box, Card, Typography, Avatar } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { useRecordContext } from 'react-admin';
 import { useCollection } from '@semapps/activitypub-components';
 import { formatUsername } from '../../utils';
@@ -60,7 +61,7 @@ const ContactCard = () => {
   const { items: contactRequests, refetch: refetchRequests } = useCollection('apods:contactRequests');
 
   const contactRequest = useMemo(
-    () => contactRequests.find(activity => activity.actor === record.describes),
+    () => contactRequests?.find(activity => activity.actor === record.describes),
     [contactRequests, record]
   )
 
@@ -84,9 +85,9 @@ const ContactCard = () => {
         </Typography>
         <Typography align="center">{formatUsername(record.describes)}</Typography>
       </Box>
-      {(contacts.includes(record.describes) || contactRequest) &&
+      {(contacts?.includes(record.describes) || contactRequest) &&
         <Box className={classes.button} pb={3} pr={3} pl={3}>
-          {contacts.includes(record.describes) && (
+          {contacts?.includes(record.describes) && (
             <RemoveContactButton refetch={refetchContacts} variant="contained" color="primary" fullWidth />
           )}
           {contactRequest &&

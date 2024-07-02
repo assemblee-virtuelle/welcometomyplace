@@ -1,12 +1,11 @@
 import React from 'react';
-import { Box, useMediaQuery } from '@material-ui/core';
-import Alert from '@material-ui/lab/Alert';
+import { Box, Alert, useMediaQuery } from '@mui/material';
 import { MapField } from '@semapps/geo-components';
 import { ReferenceField } from '@semapps/field-components';
 import { useRecordContext, useTranslate } from 'react-admin';
 
-const HostLocationField = ({ label, source, ...rest }) => {
-  const record = useRecordContext(rest);
+const HostLocationField = ({ label, source }) => {
+  const record = useRecordContext();
   const xs = useMediaQuery((theme) => theme.breakpoints.down('xs'), { noSsr: true });
   const translate = useTranslate();
   return (
@@ -27,6 +26,7 @@ const HostLocationField = ({ label, source, ...rest }) => {
         latitude={(record) => record?.['vcard:hasAddress']?.['vcard:hasGeo']?.['vcard:latitude']}
         longitude={(record) => record?.['vcard:hasAddress']?.['vcard:hasGeo']?.['vcard:longitude']}
         height={xs ? 250 : 400}
+        typographyProps={{ component: 'div' }}
       />
     </ReferenceField>
   );
